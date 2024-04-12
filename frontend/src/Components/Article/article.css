@@ -1,0 +1,45 @@
+.card {
+  position: relative;
+  color: white;
+  background-size: cover;
+  height: 350px;
+  width: 350px;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  transition: transform 500ms ease;
+  text-align: center;
+}
+
+.card:hover,
+.card:focus {
+  transform: scale(1.03);
+}
+
+.card-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 2.5rem 1.5rem 1.5rem 1.5rem;
+  background: linear-gradient(
+    45deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(5, 45, 55, 1) 50%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
+  transition: opacity 500ms linear, transform 500ms ease-in-out;
+  transform: translateY(100%);
+  opacity: 0;
+}
+
+.card:hover .card-content,
+.card:focus-within .card-content {
+  opacity: 1;
+  transform: translateY(0%);
+  transition-delay: 500ms;
+}

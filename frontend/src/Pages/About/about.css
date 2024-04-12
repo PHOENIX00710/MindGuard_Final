@@ -1,0 +1,43 @@
+.btn {
+    position: relative;
+    border: 2px solid #0693e3;
+    padding: 0.3rem 0.85rem;
+    margin-top: 0.7rem;
+    font-size: 1.65rem;
+    max-width: max-content;
+    border-radius: 0.9rem;
+    color: #0693e3;
+    transition: color 500ms ease-in-out;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    background-color: #0693e3;
+    z-index: -1;
+    transition: width 500ms ease-in-out;
+}
+
+/* Apply hover and focus to .btn, not .btn::before */
+.btn:hover::before,
+.btn:focus::before {
+    width: 100%;
+}
+
+.btn:hover,
+.btn:focus {
+    color: white;
+}
+
+#image {
+    box-shadow:
+        0px 0px 4px 8px #0692e3da,
+        0px 0px 4px 8px #0692e3c7,
+        0px 0px 4px 8px #0692e3a6,
+        0px 0px 4px 8px #0692e38c;
+}
