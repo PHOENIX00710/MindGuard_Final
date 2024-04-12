@@ -53,9 +53,14 @@ function About(props) {
           transition={{ duration: 1.5 }}
           className="text-sm md:text-lg space-x-0 roboto-regular-italic"
         >
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis
-          possimus tempore quo, itaque voluptatum doloremque. Distinctio at
-          sapiente sint facilis alias maiores. Harum, quia quis!
+          Welcome to our wellness platform, your dedicated space for mental
+          well-being. Here, you can access a curated selection of articles on
+          mental health, engage with the DASS-21 questionnaire to receive
+          personalized insights via email, and connect with others in our
+          supportive community forum. Whether you're seeking knowledge, sharing
+          experiences, or finding comfort, our platform is here to support and
+          enrich your journey to better mental health. Join us today and be part
+          of a caring community.
         </motion.p>
         <button className="btn " onClick={handleSubmit}>
           Get Articles

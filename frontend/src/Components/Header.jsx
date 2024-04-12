@@ -7,6 +7,8 @@ import { signOutSuccess } from "../features/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "@nextui-org/react";
 import png from "../assets/main_png.png";
+import { IoClose } from "react-icons/io5";
+import { motion } from "framer-motion";
 
 function Header(props) {
   const [openNavbar, setOpenNavbar] = useState(false);
@@ -83,14 +85,26 @@ function Header(props) {
 
       <header className="flex relative lg:hidden items-center justify-between py-4 px-8 border-b-4 border-blue-400">
         <Link to={"/"}>
-          <section className="text-xl md:text-3xl text-white  p-2 bg-blue-2 max-w-sm roboto-bold rounded-lg">
-            MindGuard
-          </section>
+          {
+            <section className="rounded-full overflow-hidden bg-cover bg-center">
+              <img src={png} alt="" height={70} width={70} />
+            </section>
+          }
         </Link>
         <div className="flex items-center gap-6">
-          <Link to={"/signin"}>
-            <Button variant="contained">Sign In</Button>
-          </Link>
+          {user ? (
+            <Button onClick={handleSignout} color="warning" variant="shadow">
+              Signout
+            </Button>
+          ) : (
+            <Button
+              variant="shadow"
+              color="primary"
+              onClick={() => navigate("/signin")}
+            >
+              Sign In
+            </Button>
+          )}
           {openNavbar ? (
             <>
               <HiBarsArrowUp
@@ -99,41 +113,51 @@ function Header(props) {
                 className="cursor-pointer"
                 onClick={() => setOpenNavbar((state) => !state)}
               />
-              <nav
-                className="flex absolute z-10 right-3 top-16 py-6 px-10 rounded-lg shadow-xl flex-col justify-around gap-y-4 items-center roboto-medium  text-white"
+              <motion.div
+                className="flex absolute z-10 right-3 top-20 py-6 px-10 rounded-lg shadow-xl flex-col roboto-medium  text-white navbar-animate"
+                initial={{ opacity: 0, scaleY: 0 }}
+                animate={{ opacity: 1, scaleY: 1 }}
+                exit={{ opacity: 0, scaleY: 0 }}
+                transition={{ duration: 0.5 }}
                 style={{ backgroundColor: "#18191a" }}
               >
-                <Link
-                  to={"/"}
-                  className="w-full hover:bg-gray-hover cursor-pointer py-1 px-3 rounded-lg "
-                >
-                  Home
-                </Link>
-                <Link
-                  to={"/profile?tab=savedArticles"}
-                  className=" w-full cursor-pointer py-1 px-3 rounded-lg hover:bg-gray-hover "
-                >
-                  Profile
-                </Link>
-                <Link
-                  to={"/articles"}
-                  className=" w-full cursor-pointer py-1 px-3 rounded-lg hover:bg-gray-hover "
-                >
-                  Articles
-                </Link>
-                <Link
-                  to={"/dass"}
-                  className=" w-full cursor-pointer py-1 px-3 rounded-lg hover:bg-gray-hover "
-                >
-                  DASS-42
-                </Link>
-                <Link
-                  to={"/community"}
-                  className=" w-full cursor-pointer py-1 px-3 rounded-lg hover:bg-gray-hover "
-                >
-                  Community
-                </Link>
-              </nav>
+                <IoClose
+                  className="text-2xl text-white cursor-pointer relative left-24 top-0"
+                  onClick={() => setOpenNavbar(false)}
+                />
+                <nav className="flex flex-col justify-around gap-y-4 items-center">
+                  <Link
+                    to={"/"}
+                    className="w-full hover:bg-gray-hover cursor-pointer py-1 px-3 rounded-lg "
+                  >
+                    Home
+                  </Link>
+                  <Link
+                    to={"/profile?tab=savedArticles"}
+                    className=" w-full cursor-pointer py-1 px-3 rounded-lg hover:bg-gray-hover "
+                  >
+                    Profile
+                  </Link>
+                  <Link
+                    to={"/articles"}
+                    className=" w-full cursor-pointer py-1 px-3 rounded-lg hover:bg-gray-hover "
+                  >
+                    Articles
+                  </Link>
+                  <Link
+                    to={"/dass"}
+                    className=" w-full cursor-pointer py-1 px-3 rounded-lg hover:bg-gray-hover "
+                  >
+                    DASS-42
+                  </Link>
+                  <Link
+                    to={"/community"}
+                    className=" w-full cursor-pointer py-1 px-3 rounded-lg hover:bg-gray-hover "
+                  >
+                    Community
+                  </Link>
+                </nav>
+              </motion.div>
             </>
           ) : (
             <HiBarsArrowDown

@@ -16,10 +16,10 @@ function Story(props) {
 
   useEffect(() => {
     const handleUser = () => {
-      setUserId(user._id)
-      setLike(props.story.likes.indexOf(user._id) != -1)
+      setUserId(user._id);
+      setLike(props.story.likes.indexOf(user._id) != -1);
     };
-  
+
     if (user) handleUser();
   }, [user]);
 
@@ -27,7 +27,7 @@ function Story(props) {
     console.log(like);
     try {
       const req = await fetch(
-        `http://localhost:3000/api/v1/reactions/toggleLike/${props.story._id}`,
+        `https://mind-guard-final-backend.vercel.app/api/v1/reactions/toggleLike/${props.story._id}`,
         {
           method: "PUT",
           credentials: "include",

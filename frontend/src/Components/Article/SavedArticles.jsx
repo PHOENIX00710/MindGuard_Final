@@ -33,7 +33,7 @@ function SavedArticles(props) {
 
   const handleUnsave = async (e) => {
     try {
-      let url = `http://localhost:3000/api/v1/articles/toggleSave/${article._id}`;
+      let url = `https://mind-guard-final-backend.vercel.app/api/v1/articles/toggleSave/${article._id}`;
       const req = await fetch(url, {
         method: "PUT",
         credentials: "include",
@@ -45,7 +45,7 @@ function SavedArticles(props) {
       if (data.success === false) return toast.error(data.message);
       toast.success(data.message)
     } catch (e) {
-      return toast.error(data.message);
+      return toast.error(e.message);
     }
   };
   
@@ -55,7 +55,7 @@ function SavedArticles(props) {
         <img src={article.image} alt="" className=" h-56 w-full" />
         <h3 className="py-1 px-2 roboto-medium">{article.overview}</h3>
         <section className="flex justify-between items-center px-2 py-2">
-          <i className="absolute bottom-2">{article.title}</i>
+          <i className="absolute bottom-2 max-w-72 ">{article.title}</i>
 
           {openOptions ? (
             <>

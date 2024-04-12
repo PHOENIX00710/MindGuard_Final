@@ -15,6 +15,7 @@ import { store, persistor } from "./Redux/user.store";
 import { Provider } from "react-redux";
 import IndividualPost from "./Pages/IndividualPost";
 import { Toaster } from "react-hot-toast";
+import PrivateRoute from "./Components/PrivateRoute";
 
 function App() {
   const [openNavbar, setOpenNavbar] = useState(false);
@@ -33,11 +34,13 @@ function App() {
             <Route path="/about" element={<About open={openNavbar} />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/articles" element={<Articles />} />
-            <Route path="/dass" element={<Dass />} />
-            <Route path="/community" element={<Community />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/indi/:postId" element={<IndividualPost />} />
+            <Route element={<PrivateRoute />}>
+              <Route path="/articles" element={<Articles />} />
+              <Route path="/dass" element={<Dass />} />
+              <Route path="/community" element={<Community />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/indi/:postId" element={<IndividualPost />} />
+            </Route>
           </Routes>
           {/*<Footer />*/}
           <Toaster />
