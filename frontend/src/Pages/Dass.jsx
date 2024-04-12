@@ -160,7 +160,7 @@ function Dass() {
     console.log(depression_score, anxiety_score, stress_score);
 
     try {
-      const req = await fetch("http://localhost:3000/api/v1/dass/submitDASS", {
+      const req = await fetch("hhttps://mind-guard-final-backend.vercel.app/api/v1/dass/submitDASS", {
         method: "POST",
         credentials: "include",
         headers: {

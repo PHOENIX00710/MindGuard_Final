@@ -25,7 +25,7 @@ function SignIn() {
     console.log(formData);
     try {
       dispatch(signInStart());
-      const req = await fetch("http://localhost:3000/api/v1/user/signin", {
+      const req = await fetch("https://mind-guard-final-backend.vercel.app/api/v1/user/signin", {
         method: "POST",
         credentials: "include",
         headers: {

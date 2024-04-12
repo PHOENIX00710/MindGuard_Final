@@ -20,7 +20,7 @@ await mongoose.connect(process.env.MongoURI)
 const app = express();
 app.use(express.json())
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: ['http://localhost:5173', 'https://mind-guard-final-jet.vercel.app'],
     credentials: true,
 }))
 app.use(cookieParser())

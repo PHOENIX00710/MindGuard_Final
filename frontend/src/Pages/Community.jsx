@@ -18,7 +18,7 @@ function Community() {
       try {
         setLoading(true);
         const req = await fetch(
-          "http://localhost:3000/api/v1/posts/getAllPosts",
+          "hhttps://mind-guard-final-backend.vercel.app/api/v1/posts/getAllPosts",
           {
             method: "GET",
             credentials: "include",
@@ -44,7 +44,7 @@ function Community() {
         return toast.error("Content is Empty")
     try {
       setLoading(true);
-      const req = await fetch("http://localhost:3000/api/v1/posts/createPost", {
+      const req = await fetch("https://mind-guard-final-backend.vercel.app/api/v1/posts/createPost", {
         method: "POST",
         credentials: "include",
         headers: {

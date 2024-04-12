@@ -39,7 +39,7 @@ function IndividualPost() {
     console.log(like);
     try {
       const req = await fetch(
-        `http://localhost:3000/api/v1/reactions/toggleLike/${postId}`,
+        `https://mind-guard-final-backend.vercel.app/api/v1/reactions/toggleLike/${postId}`,
         {
           method: "PUT",
           credentials: "include",
@@ -65,7 +65,7 @@ function IndividualPost() {
       setLoading(true);
       try {
         const req = await fetch(
-          `http://localhost:3000/api/v1/posts/viewPost/${postId}`,
+          `https://mind-guard-final-backend.vercel.app/api/v1/posts/viewPost/${postId}`,
           {
             method: "GET",
             credentials: "include",
@@ -88,7 +88,7 @@ function IndividualPost() {
       setLoading(true);
       try {
         const req = await fetch(
-          `http://localhost:3000/api/v1/reactions/getComments/${postId}`,
+          `https://mind-guard-final-backend.vercel.app/api/v1/reactions/getComments/${postId}`,
           {
             method: "GET",
             credentials: "include",
@@ -120,7 +120,7 @@ function IndividualPost() {
     try {
       setLoading(true);
       const req = await fetch(
-        `http://localhost:3000/api/v1/reactions/addComment/${postId}`,
+        `https://mind-guard-final-backend.vercel.app/api/v1/reactions/addComment/${postId}`,
         {
           method: "POST",
           credentials: "include",

@@ -28,7 +28,7 @@ function Articles() {
       try {
         setLoading(true);
         const req = await fetch(
-          "http://localhost:3000/api/v1/articles/getArticles",
+          "hthttps://mind-guard-final-backend.vercel.app/api/v1/articles/getArticles",
           {
             method: "GET",
             credentials: "include",
@@ -53,7 +53,7 @@ function Articles() {
       try {
         setLoading(true);
         const req = await fetch(
-          `http://localhost:3000/api/v1/articles/getArticles?category=${category.toLowerCase()}`,
+          `https://mind-guard-final-backend.vercel.app/api/v1/articles/getArticles?category=${category.toLowerCase()}`,
           {
             method: "GET",
             credentials: "include",
@@ -78,7 +78,7 @@ function Articles() {
     try {
       setLoading(true);
       const req = await fetch(
-        `http://localhost:3000/api/v1/articles/getArticles?searchTerm=${searchTerm.toLowerCase()}`,
+        `https://mind-guard-final-backend.vercel.app/api/v1/articles/getArticles?searchTerm=${searchTerm.toLowerCase()}`,
         {
           method: "GET",
           credentials: "include",
