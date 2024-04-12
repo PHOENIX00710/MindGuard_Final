@@ -56,7 +56,7 @@ function Story(props) {
   };
 
   return (
-    <div className="w-full max-w-md shadow-2xl rounded-md flex flex-col p-6">
+    <div className="w-full md:max-w-md shadow-2xl rounded-md flex flex-col p-6">
       <section className="flex flex-col gap-5">
         <section className="flex gap-4 items-center justify-start">
           <Avatar

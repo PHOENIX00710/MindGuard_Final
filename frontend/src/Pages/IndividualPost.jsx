@@ -162,9 +162,9 @@ function IndividualPost() {
 
   if (post) {
     return (
-      <div className="relative min-h-screen flex flex-col py-10 px-20 items-center">
+      <div className="min-h-screen gap-3 flex flex-col py-10 px-5 md:px-20 items-center">
         <IoIosArrowRoundBack
-          className="text-5xl absolute left-6 top-6 cursor-pointer"
+          className="text-5xl left-6 justify-self-start self-start top-6 cursor-pointer"
           onClick={goBack}
         />
         <section className="flex flex-col gap-7">

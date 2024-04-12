@@ -113,7 +113,7 @@ function Community() {
     <div
       className={`min-h-screen ${
         addStory ? "opacity-30" : "opacity-100"
-      } px-20 py-10 flex flex-col justify-center items-center`}
+      } px-5 md:px-20 py-10 flex flex-col gap-4 justify-center items-center`}
     >
       <h1 className="roboto-bold text-4xl">Today’s Top Discussions</h1>
       <div className=" self-end">
@@ -126,7 +126,7 @@ function Community() {
           Add Your Story
         </Button>
       </div>
-      <main className="grid grid-cols-1 lg:grid-cols-2 place-items-center p-10 gap-9">
+      <main className="grid grid-cols-1 lg:grid-cols-2 place-items-center md:p-10 gap-9">
         {stories &&
           stories.map((story) => (
             <motion.div
