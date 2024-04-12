@@ -20,7 +20,7 @@ function SignUp() {
     e.preventDefault();
     try {
       setLoading(true);
-      const req = await fetch("http://localhost:3000/api/v1/user/signup", {
+      const req = await fetch("https://mind-guard-final-backend.vercel.app/api/v1/user/signup", {
         method: "POST",
         credentials: "include",
         headers: {

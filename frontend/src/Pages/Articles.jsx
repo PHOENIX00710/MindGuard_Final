@@ -11,6 +11,7 @@ import { FaSearchengin } from "react-icons/fa6";
 import React, { useEffect, useState } from "react";
 import Article from "../Components/Article/Article";
 import { motion } from "framer-motion";
+import toast from "react-hot-toast";
 import { ClipLoader, PacmanLoader } from "react-spinners";
 
 function Articles() {
@@ -28,7 +29,7 @@ function Articles() {
       try {
         setLoading(true);
         const req = await fetch(
-          "hthttps://mind-guard-final-backend.vercel.app/api/v1/articles/getArticles",
+          "https://mind-guard-final-backend.vercel.app/api/v1/articles/getArticles",
           {
             method: "GET",
             credentials: "include",

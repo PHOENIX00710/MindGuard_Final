@@ -18,7 +18,7 @@ function Community() {
       try {
         setLoading(true);
         const req = await fetch(
-          "hhttps://mind-guard-final-backend.vercel.app/api/v1/posts/getAllPosts",
+          "https://mind-guard-final-backend.vercel.app/api/v1/posts/getAllPosts",
           {
             method: "GET",
             credentials: "include",

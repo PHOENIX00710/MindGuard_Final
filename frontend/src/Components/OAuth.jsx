@@ -40,7 +40,7 @@ export const OAuth = () => {
       console.log(result);
       // Submit data for database
       try {
-        const res = await fetch("http://localhost:3000/api/v1/user/google", {
+        const res = await fetch("https://mind-guard-final-backend.vercel.app/api/v1/user/google", {
           method: "POST",
           credentials: "include",
           headers: {

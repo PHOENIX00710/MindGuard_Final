@@ -12,7 +12,7 @@ function SavedArticlesPage() {
       try {
         setLoading(true);
         const req = await fetch(
-          "http://localhost:3000/api/v1/articles/getSavedArticles",
+          "https://mind-guard-final-backend.vercel.app/api/v1/articles/getSavedArticles",
           {
             method: "GET",
             credentials: "include",
