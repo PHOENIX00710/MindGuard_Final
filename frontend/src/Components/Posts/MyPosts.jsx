@@ -24,7 +24,7 @@ function MyPosts() {
       try {
         setLoading(true);
         const req = await fetch(
-          `http://localhost:3000/api/v1/posts/getAllPosts?userId=${user._id}`,
+          `https://mind-guard-final-backend.vercel.app/api/v1/posts/getAllPosts?userId=${user._id}`,
           {
             method: "GET",
             credentials: "include",

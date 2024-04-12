@@ -14,7 +14,7 @@ function IndividualRow(props) {
 
   const handleRemove = async () => {
     try {
-      const req = await fetch(`http://localhost:3000/api/v1/posts/removePost/${props.details._id}`, {
+      const req = await fetch(`https://mind-guard-final-backend.vercel.app/api/v1/posts/removePost/${props.details._id}`, {
         method: "DELETE",
         credentials: "include",
         headers: {

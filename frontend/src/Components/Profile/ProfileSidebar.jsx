@@ -14,7 +14,7 @@ function ProfileSidebar() {
   const user = useSelector((state) => state.user.userDetails);
 
   const handleSignout = async (e) => {
-    let url = "http://localhost:3000/api/v1/user/signout";
+    let url = "https://mind-guard-final-backend.vercel.app/api/v1/user/signout";
     const req = await fetch(url, {
       method: "GET",
       credentials: "include",

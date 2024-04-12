@@ -8,7 +8,7 @@ function Article(props) {
 
   const handleSave = async (e) => {
     try {
-      let url = `http://localhost:3000/api/v1/articles/toggleSave/${props.article._id}`;
+      let url = `https://mind-guard-final-backend.vercel.app/api/v1/articles/toggleSave/${props.article._id}`;
       const req = await fetch(url, {
         method: "PUT",
         credentials: "include",
