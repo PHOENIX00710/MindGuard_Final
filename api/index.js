@@ -8,6 +8,7 @@ import dassRoutes from './routes/dass.router.js'
 import userRoutes from './routes/user.routes.js'
 import postRoutes from './routes/post.router.js'
 import commentRoutes from './routes/comment.router.js'
+import {app, server} from './socket/socket.js'
 
 dotenv.config();
 
@@ -17,7 +18,6 @@ await mongoose.connect(process.env.MongoURI)
     })
     .catch((e) => console.log("Could not connect to database", e))
 
-const app = express();
 app.use(express.json())
 app.use(cors({
     origin: ['http://localhost:5173', 'https://mind-guard-final-jet.vercel.app'],
@@ -44,6 +44,6 @@ app.use((err, req, res, next) => {
         })
 })
 
-app.listen(3000, () => {
+server.listen(3000, () => {
     console.log("Server is listening at port 3000");
 })

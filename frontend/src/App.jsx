@@ -15,6 +15,7 @@ import { store, persistor } from "./Redux/user.store";
 import { Provider } from "react-redux";
 import IndividualPost from "./Pages/IndividualPost";
 import { Toaster } from "react-hot-toast";
+import { SocketContextProvider } from "./context/SocketContext.jsx";
 import PrivateRoute from "./Components/PrivateRoute";
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
 
   return (
     <Provider store={store}>
+      <SocketContextProvider>
       <PersistGate loading={null} persistor={persistor}>
         <Router>
           <Header navbarHandler={navBarHandler} />
@@ -46,6 +48,7 @@ function App() {
           <Toaster />
         </Router>
       </PersistGate>
+      </SocketContextProvider>
     </Provider>
   );
 }

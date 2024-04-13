@@ -1,6 +1,8 @@
 import commentModel from "../models/commentSchema.js"
 import postModel from "../models/postSchema.js"
 import { generateError } from "../utils/customErrorGenerator.js"
+import { io } from '../socket/socket.js';
+import { log } from "console";
 
 export const toggleLikes = async (req, res, next) => {
     const postId = req.params.postId
@@ -29,7 +31,8 @@ export const toggleLikes = async (req, res, next) => {
             )
 
             await updatedPost.save()
-
+            io.emit("updatedPost",updatedPost)
+            console.log(updatedPost)
             res.status(200).send(updatedPost);
         }
         catch (error) {

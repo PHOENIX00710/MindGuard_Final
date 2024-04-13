@@ -53,6 +53,7 @@ export const signin = async (req, res, next) => {
         if (!user || !isPasswordCorrect) {
             return next(generateError(400, "Invalid username or password"))
         }
+    console.log(user)
         genTokenAndSetCookie(user._id, res)
         delete user.password
         res.status(200).json({ user, message: "Logged In Successfully!" })

@@ -8,11 +8,29 @@ import { useNavigate } from "react-router-dom";
 import "./story.css";
 import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
+import { useSocketContext } from "../../context/SocketContext";
 
 function Story(props) {
   const [like, setLike] = useState(false);
   const [userId, setUserId] = useState(null);
   const user = useSelector((state) => state.user.userDetails);
+  const { socket } = useSocketContext();
+  const [likes, setLikes] = useState(null);
+
+  // useEffect(() => {
+  //   console.log(socket);
+  //   socket?.on("updatedPost", (updatedPost) => {
+  //     console.log("got");
+  //     if (updatedPost) {
+  //       console.log("Message Received!");
+  //       console.log("socket:", updatedPost);
+  //       setLikes(updatedPost.likes.length);
+  //       setLike(updatedPost.likes.indexOf(user._id) != -1);
+  //       //setChange((prev)=>!prev)
+  //     }
+  //   });
+  //   return () => socket?.off("updatedPost");
+  // }, [socket, like, setLike]);
 
   useEffect(() => {
     const handleUser = () => {
@@ -27,7 +45,7 @@ function Story(props) {
     console.log(like);
     try {
       const req = await fetch(
-        `https://mind-guard-final-backend.vercel.app/api/v1/reactions/toggleLike/${props.story._id}`,
+        `http://localhost:3000/api/v1/reactions/toggleLike/${props.story._id}`,
         {
           method: "PUT",
           credentials: "include",
@@ -41,11 +59,16 @@ function Story(props) {
         toast.error(data.message);
         return;
       }
+      console.log(data);
+      if(data){
+        setLikes(data.likes.length);
+        setLike(data.likes.indexOf(user._id) != -1);
+      }
     } catch (e) {
       return toast.error(data.message);
     }
     toast.success("Like Toggled. Refresh to see results");
-    setLike((prevState) => !prevState);
+    // setLike((prevState) => !prevState);
   };
 
   const navigate = useNavigate();
@@ -54,7 +77,7 @@ function Story(props) {
     console.log(props);
     navigate(`/indi/${props.story._id}`);
   };
-
+console.log(likes,like)
   return (
     <div className="w-full md:max-w-md shadow-2xl rounded-md flex flex-col p-6">
       <section className="flex flex-col gap-5">
@@ -73,7 +96,9 @@ function Story(props) {
         </section>
         <section className="w-full justify-start flex items-center gap-3 border-y-2 border-slate-200 py-2">
           <p>
-            <strong className="mr-0.5">{props.story.likes.length}</strong>
+            <strong className="mr-0.5">
+              {(likes !== null) ? likes : props.story.likes.length}
+            </strong>
             <span className="roboto-light text-slate-500">Likes</span>
           </p>
           <p>
