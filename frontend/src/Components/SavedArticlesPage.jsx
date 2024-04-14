@@ -7,6 +7,11 @@ function SavedArticlesPage() {
   const [articles, setArticles] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  const removeSavedArticle = (id) => {
+    let temp = articles.filter((article) => article.article !== id);
+    setArticles(temp);
+  };
+
   useEffect(() => {
     const fetchArticles = async () => {
       try {
@@ -22,7 +27,6 @@ function SavedArticlesPage() {
           }
         );
         const data = await req.json();
-        console.log(data);
         if (data.success === false) return toast.error(data.message);
         setArticles(data);
       } catch (e) {
@@ -51,7 +55,13 @@ function SavedArticlesPage() {
     <div className="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-1 gap-y-6 place-items-center p-4 ">
       {articles &&
         articles.map((article) => {
-          return <SavedArticles key={article._id} article={article} />;
+          return (
+            <SavedArticles
+              key={article._id}
+              article={article}
+              removeArticle={removeSavedArticle}
+            />
+          );
         })}
     </div>
   );

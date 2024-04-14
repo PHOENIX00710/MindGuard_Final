@@ -45,6 +45,11 @@ function MyPosts() {
     if (userId) fetchArticles();
   }, [userId]);
 
+  const removePost = (id) => {
+    let temp = posts.filter((post) => post._id !== id);
+    setPosts(temp);
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex flex-col gap-3 justify-center items-center ">
@@ -72,7 +77,13 @@ function MyPosts() {
         <tbody>
           {posts &&
             posts.map((item) => {
-              return <IndividualRow key={item._id} details={item} />;
+              return (
+                <IndividualRow
+                  key={item._id}
+                  details={item}
+                  removePost={removePost}
+                />
+              );
             })}
         </tbody>
       </table>

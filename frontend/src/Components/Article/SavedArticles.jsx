@@ -44,6 +44,8 @@ function SavedArticles(props) {
       const data = await req.json();
       if (data.success === false) return toast.error(data.message);
       toast.success(data.message)
+      console.log("Inside: ",article._id)
+      props.removeArticle(article._id)
     } catch (e) {
       return toast.error(e.message);
     }

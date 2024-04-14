@@ -11,6 +11,7 @@ import toast from "react-hot-toast";
 
 function Story(props) {
   const [like, setLike] = useState(false);
+  const [likes, setLikes] = useState(null);
   const [userId, setUserId] = useState(null);
   const user = useSelector((state) => state.user.userDetails);
 
@@ -41,11 +42,14 @@ function Story(props) {
         toast.error(data.message);
         return;
       }
+      if (data) {
+        setLike(data.likes.indexOf(user._id) !== -1);
+        setLikes(data.likes.length);
+      }
     } catch (e) {
       return toast.error(data.message);
     }
-    toast.success("Like Toggled. Refresh to see results");
-    setLike((prevState) => !prevState);
+    toast.success("Like Toggled");
   };
 
   const navigate = useNavigate();
@@ -73,7 +77,9 @@ function Story(props) {
         </section>
         <section className="w-full justify-start flex items-center gap-3 border-y-2 border-slate-200 py-2">
           <p>
-            <strong className="mr-0.5">{props.story.likes.length}</strong>
+            <strong className="mr-0.5">
+              {likes !== null ? likes : props.story.likes.length}
+            </strong>
             <span className="roboto-light text-slate-500">Likes</span>
           </p>
           <p>

@@ -26,6 +26,7 @@ function IndividualRow(props) {
         toast.error(data.message);
         return;
       }
+      props.removePost(props.details._id)
     } catch (e) {
       return toast.error(data.message);
     }
