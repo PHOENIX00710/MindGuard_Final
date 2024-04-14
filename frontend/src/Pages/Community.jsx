@@ -9,6 +9,7 @@ import { IoMdClose } from "react-icons/io";
 
 function Community() {
   const [stories, setStories] = useState(null);
+  const [storyAdded, setStoryAdded] = useState(false);
   const [loading, setLoading] = useState(false);
   const [content, setContent] = useState(null);
   const [addStory, setAddStory] = useState(false);
@@ -36,30 +37,33 @@ function Community() {
       setLoading(false);
     };
     fetchArticles();
-  }, []);
+  }, [storyAdded]);
 
   const handleAddStory = async (e) => {
     e.preventDefault();
-    if(!content)
-        return toast.error("Content is Empty")
+    if (!content) return toast.error("Content is Empty");
     try {
       setLoading(true);
-      const req = await fetch("https://mind-guard-final-backend.vercel.app/api/v1/posts/createPost", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          content: content,
-        }), // HTTP only handles text data
-      });
+      const req = await fetch(
+        "https://mind-guard-final-backend.vercel.app/api/v1/posts/createPost",
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            content: content,
+          }), // HTTP only handles text data
+        }
+      );
       const data = await req.json();
       if (data.success === false) {
         toast.error(data.message);
         setLoading(false);
         return;
       }
+      setStoryAdded((prevState) => !prevState);
     } catch (e) {
       return toast.error(data.message);
     }
