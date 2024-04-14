@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 function IndividualPost() {
   const [like, setLike] = useState(false);
+  const [likes, setLikes] = useState(null);
   const [post, setPost] = useState(null);
   const [comments, setComments] = useState(null);
   const [newComment, setNewComment] = useState(null);
@@ -53,11 +54,14 @@ function IndividualPost() {
         toast.error(data.message);
         return;
       }
+      if (data) {
+        setLike(data.likes.indexOf(user._id) !== -1);
+        setLikes(data.likes.length);
+      }
     } catch (e) {
       return toast.error(data.message);
     }
     toast.success("Like Toggled");
-    setLike((prevState) => !prevState);
   };
 
   useEffect(() => {
@@ -108,7 +112,7 @@ function IndividualPost() {
 
     fetchComments();
     if (!newComment) fetchPostDetails();
-  }, [like]);
+  }, []);
 
   const goBack = () => {
     navigate("/community");
@@ -118,7 +122,6 @@ function IndividualPost() {
     e.preventDefault();
     if (!newComment) return toast.error("Content is Empty");
     try {
-      setLoading(true);
       const req = await fetch(
         `https://mind-guard-final-backend.vercel.app/api/v1/reactions/addComment/${postId}`,
         {
@@ -138,11 +141,13 @@ function IndividualPost() {
         setLoading(false);
         return;
       }
+      let temp=comments
+      temp.unshift(data.newComment)
+      setComments(temp)
     } catch (e) {
       return toast.error(data.message);
     }
     setNewComment(null);
-    setLoading(false);
     toast.success("Comment Added");
   };
 
@@ -183,11 +188,11 @@ function IndividualPost() {
           <p className="roboto-regular">{post.content}</p>
           <section className="w-full justify-start flex items-center gap-3 py-2">
             <p>
-              <strong className="mr-0.5">{post.likes.length}</strong>
+              <strong className="mr-0.5">{likes !== null ? likes : post.likes.length}</strong>
               <span className="roboto-light text-slate-500">Likes</span>
             </p>
             <p>
-              <strong className="mr-0.5">{post.comments.length}</strong>
+              <strong className="mr-0.5">{comments.length}</strong>
               <span className="roboto-light text-slate-500">Comments</span>
             </p>
           </section>
