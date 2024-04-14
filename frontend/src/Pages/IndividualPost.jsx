@@ -192,7 +192,7 @@ function IndividualPost() {
               <span className="roboto-light text-slate-500">Likes</span>
             </p>
             <p>
-              <strong className="mr-0.5">{comments.length}</strong>
+              <strong className="mr-0.5">{comments !== null ? comments.length : post.comments.length}</strong>
               <span className="roboto-light text-slate-500">Comments</span>
             </p>
           </section>
