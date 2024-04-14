@@ -1,9 +1,10 @@
 import { Alert, Button } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { LuShieldClose } from "react-icons/lu";
 import { animate, motion } from "framer-motion";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const questions = [
   {
@@ -112,11 +113,25 @@ function Dass() {
   const [isLastQuestion, setIsLastQuestion] = useState(false);
   const [answers, setAnswers] = useState({});
   const [error, setError] = useState(null);
+  const [showResult, setShowResult] = useState(false);
+  const [labels, setLabels] = useState(null);
+  const navigate=useNavigate()
 
   const handleCloseModal = (e) => {
     setOpenModal(false);
     e.stopPropagation();
   };
+
+  useEffect(() => {
+    const closeResult = () => {
+      setTimeout(() => {
+        setShowResult(false);
+        setLabels(null);
+        navigate("/")
+      }, 20000);
+    };
+    if (showResult) closeResult();
+  }, [showResult]);
 
   const increaseCount = (e) => {
     setError(null);
@@ -160,28 +175,61 @@ function Dass() {
     console.log(depression_score, anxiety_score, stress_score);
 
     try {
-      const req = await fetch("https://mind-guard-final-backend.vercel.app/api/v1/dass/submitDASS", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          depression_score: depression_score * 2,
-          anxiety_score: anxiety_score * 2,
-          stress_score: stress_score * 2,
-        }), // HTTP only handles text data
-      });
+      const req = await fetch(
+        "https://mind-guard-final-backend.vercel.app/api/v1/dass/submitDASS",
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            depression_score: depression_score * 2,
+            anxiety_score: anxiety_score * 2,
+            stress_score: stress_score * 2,
+          }), // HTTP only handles text data
+        }
+      );
       const data = await req.json();
       if (data.success === false) {
         toast.error(data.message);
         return;
       }
+      console.log(data.newDass);
+      setLabels(data.newDass);
+      setShowResult(true);
     } catch (e) {
       return toast.error(data.message);
     }
     toast.success("Score submitted. You will get results on Gmail");
   };
+
+  if (showResult) {
+    return (
+      <div className="h-screen flex justify-center items-center">
+        <div className="shadow-xl text-2xl gap-4 rounded-xl flex flex-col p-10">
+          <div>
+            <span>Depression Level: </span>
+            <span className=" roboto-bold ">
+              {labels && labels.depression_label}
+            </span>
+          </div>
+          <div>
+            <span>Anxiety Level: </span>
+            <span className=" roboto-bold ">
+              {labels && labels.anxiety_label}
+            </span>
+          </div>
+          <div>
+            <span>Stress Level: </span>
+            <span className=" roboto-bold ">
+              {labels && labels.stress_label}
+            </span>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
