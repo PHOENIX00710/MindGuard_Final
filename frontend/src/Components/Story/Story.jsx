@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Avatar from "@mui/material/Avatar";
-import { FaHeart } from "react-icons/fa";
-import { CiHeart } from "react-icons/ci";
-import { FaRegComment } from "react-icons/fa6";
-import { CiShare1 } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
 import "./story.css";
 import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
+import { RWebShare } from "react-web-share";
+import commentIcon from "../../assets/comment-icon.svg";
+import shareIcon from "../../assets/share-icon.svg";
+import heartLikedIcon from "../../assets/heart-icon-liked.svg";
+import heartUnlikedIcon from "../../assets/heart-icon-unliked.svg";
 
 function Story(props) {
   const [like, setLike] = useState(false);
@@ -89,22 +90,40 @@ function Story(props) {
         </section>
         <section className="w-full flex items-center justify-between">
           {like ? (
-            <FaHeart
-              className="text-2xl cursor-pointer overflow-hidden"
-              style={{ color: "red" }}
+            <img
+              src={heartLikedIcon}
+              alt="heart"
+              className="text-2xl cursor-pointer"
               onClick={handleLike}
             />
           ) : (
-            <CiHeart
-              className="text-2xl cursor-pointer overflow-hidden"
+            <img
+              src={heartUnlikedIcon}
+              alt="heart"
+              className="text-7xl cursor-pointer"
               onClick={handleLike}
             />
           )}
-          <FaRegComment
-            className="text-3xl cursor-pointer"
+          <img
+            src={commentIcon}
+            alt="comment"
             onClick={goToIndividualPost}
+            className="text-xl cursor-pointer"
           />
-          <CiShare1 className="text-3xl cursor-pointer" />
+          <RWebShare
+            data={{
+              text: "Like humans, flamingos make friends for life",
+              url: `https://mind-guard-final-jet.vercel.app/indi/${props.story._id}`,
+              title: "Flamingos",
+            }}
+            onClick={() => console.log("shared successfully!")}
+          >
+            <img
+              src={shareIcon}
+              alt="share"
+              className="text-xl cursor-pointer"
+            />
+          </RWebShare>
         </section>
       </section>
     </div>
