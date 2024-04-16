@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Avatar from "@mui/material/Avatar";
-import { FaHeart } from "react-icons/fa";
-import { CiHeart } from "react-icons/ci";
-import { FaRegComment } from "react-icons/fa6";
-import { CiShare1 } from "react-icons/ci";
 import IndividualComment from "../Components/IndividualComment";
 import { ClipLoader, PacmanLoader } from "react-spinners";
 import toast from "react-hot-toast";
@@ -13,6 +9,10 @@ import { Button } from "@nextui-org/react";
 import { FaPlus } from "react-icons/fa6";
 import { IoMdClose } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
+import commentIcon from "../assets/comment-icon.svg";
+import shareIcon from "../assets/share-icon.svg";
+import heartLikedIcon from "../assets/heart-icon-liked.svg";
+import heartUnlikedIcon from "../assets/heart-icon-unliked.svg";
 
 function IndividualPost() {
   const [like, setLike] = useState(false);
@@ -224,19 +224,30 @@ function IndividualPost() {
           </section>
           <section className="w-1/3 flex items-center justify-between">
             {like ? (
-              <FaHeart
-                className="text-2xl cursor-pointer overflow-hidden"
-                style={{ color: "red" }}
+              <img
+                src={heartLikedIcon}
+                alt="heart"
+                className="text-2xl cursor-pointer"
                 onClick={handleLike}
               />
             ) : (
-              <CiHeart
-                className="text-2xl cursor-pointer overflow-hidden"
+              <img
+                src={heartUnlikedIcon}
+                alt="heart"
+                className="text-4xl cursor-pointer"
                 onClick={handleLike}
               />
             )}
-            <FaRegComment className="text-xl cursor-pointer" />
-            <CiShare1 className="text-xl cursor-pointer" />
+            <img
+              src={commentIcon}
+              alt="comment"
+              className="text-xl cursor-pointer"
+            />
+            <img
+              src={shareIcon}
+              alt="share"
+              className="text-xl cursor-pointer"
+            />
           </section>
           <h2 className="pl-4 self-start text-xl roboto-semibold ">
             {post.comments.length} comments
