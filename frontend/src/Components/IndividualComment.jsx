@@ -1,15 +1,10 @@
 import React, { useState } from "react";
-import { BiLike } from "react-icons/bi";
-import { BiSolidLike } from "react-icons/bi";
 import Avatar from "@mui/material/Avatar";
+import { MdDeleteSweep } from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
 
 function IndividualComment(props) {
-  const [like, setLike] = useState(false);
-
-  const handleLike = () => {
-    console.log(like);
-    setLike((prevState) => !prevState);
-  };
+  const user = useSelector((state) => state.user.userDetails);
 
   return (
     <div className="border-t-2 pt-8 border-slate-300 flex flex-col gap-5">
@@ -26,15 +21,10 @@ function IndividualComment(props) {
             </p>
           </div>
         </section>
-        {like ? (
-          <BiSolidLike
-            className="text-2xl cursor-pointer overflow-hidden"
-            onClick={handleLike}
-          />
-        ) : (
-          <BiLike
-            className="text-2xl cursor-pointer overflow-hidden"
-            onClick={handleLike}
+        {props.comment.user === user._id && (
+          <MdDeleteSweep
+            className="text-2xl cursor-pointer"
+            onClick={() => props.delete(props.comment._id)}
           />
         )}
       </section>

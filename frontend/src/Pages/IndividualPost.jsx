@@ -28,13 +28,35 @@ function IndividualPost() {
   const { postId } = useParams();
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   const handleFirstTimeLiked = () => {
-  //     console.log("Hello: ", post.liked);
-  //     setLike(post.liked);
-  //   };
-  //   if (post) handleFirstTimeLiked();
-  // }, [post]);
+  const handleCommentDelete = async (id) => {
+    try {
+      const req = await fetch(
+        `https://mind-guard-final-backend.vercel.app/api/v1/reactions/removeComment/${id}`,
+        {
+          method: "DELETE",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = await req.json();
+      if (data.success === false) {
+        toast.error(data.message);
+        return;
+      }
+      let temp = comments;
+      temp = temp.filter((comment) => {
+        console.log(id, comment._id);
+        return comment._id !== id;
+      });
+      console.log(temp);
+      setComments(temp);
+      toast.success(data.message);
+    } catch (e) {
+      return toast.error(data.message);
+    }
+  };
 
   const handleLike = async () => {
     console.log(like);
@@ -81,7 +103,7 @@ function IndividualPost() {
         const data = await req.json();
         if (data.success === false) return toast.error(data.message);
         setPost(data.post);
-        setLike(data.liked)
+        setLike(data.liked);
       } catch (error) {
         toast.error(error);
       }
@@ -141,9 +163,9 @@ function IndividualPost() {
         setLoading(false);
         return;
       }
-      let temp=comments
-      temp.unshift(data.newComment)
-      setComments(temp)
+      let temp = comments;
+      temp.unshift(data.newComment);
+      setComments(temp);
     } catch (e) {
       return toast.error(data.message);
     }
@@ -188,11 +210,15 @@ function IndividualPost() {
           <p className="roboto-regular">{post.content}</p>
           <section className="w-full justify-start flex items-center gap-3 py-2">
             <p>
-              <strong className="mr-0.5">{likes !== null ? likes : post.likes.length}</strong>
+              <strong className="mr-0.5">
+                {likes !== null ? likes : post.likes.length}
+              </strong>
               <span className="roboto-light text-slate-500">Likes</span>
             </p>
             <p>
-              <strong className="mr-0.5">{comments !== null ? comments.length : post.comments.length}</strong>
+              <strong className="mr-0.5">
+                {comments !== null ? comments.length : post.comments.length}
+              </strong>
               <span className="roboto-light text-slate-500">Comments</span>
             </p>
           </section>
@@ -258,7 +284,13 @@ function IndividualPost() {
 
           {comments &&
             comments.map((comment) => {
-              return <IndividualComment key={comment._id} comment={comment} />;
+              return (
+                <IndividualComment
+                  key={comment._id}
+                  comment={comment}
+                  delete={handleCommentDelete}
+                />
+              );
             })}
         </section>
       </div>
