@@ -9,7 +9,6 @@ export const genTokenAndSetCookie = (id, res) => {
         console.log(token);
         res
             .cookie("jwt", token, {
-                maxAge: 1 * 60 * 60 * 1000,//ms
                 secure: true, // Only send cookie over HTTPS
                 httpOnly: true, // The cookie cannot be accessed by client-side JS
                 sameSite: 'None' // Essential for cross-site usage
